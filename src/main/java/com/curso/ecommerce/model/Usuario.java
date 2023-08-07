@@ -1,16 +1,29 @@
 package com.curso.ecommerce.model;
 
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "usuarios")
+@Entity
 public class Usuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String username;
@@ -19,6 +32,12 @@ public class Usuario {
 	private String telefono;
 	private String tipo;
 	private String password;
+
+	@OneToMany(mappedBy = "usuarios")
+	private List<Producto> productos;
+	
+	@OneToMany(mappedBy = "usuarios")
+	private List<Orden> ordenes;
 	
 	@Override
 	public String toString() {
@@ -26,6 +45,5 @@ public class Usuario {
 				+ ", direccion=" + direccion + ", telefono=" + telefono + ", tipo=" + tipo + ", password=" + password
 				+ "]";
 	}
-	
-	
+
 }
